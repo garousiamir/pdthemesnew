@@ -1,13 +1,23 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { getProductBySlug, getProducts, getRelatedProducts } from "@/lib/products";
+import {
+  getProductBySlug,
+  getProducts,
+  getRelatedProducts,
+} from "@/lib/products";
 import { createMetadata } from "@/lib/seo/metadata";
 import { JsonLd, productJsonLd } from "@/lib/seo/json-ld";
 import { ProductHero } from "@/components/product/product-hero";
 import { ProductGallery } from "@/components/product/product-gallery";
 import { ProductStory } from "@/components/product/product-story";
 import { PricingTable } from "@/components/product/pricing-table";
-import { ProductChangelog, ProductDocs, ProductFaq, ProductFeatures, ProductSpecs } from "@/components/product/product-details";
+import {
+  ProductChangelog,
+  ProductDocs,
+  ProductFaq,
+  ProductFeatures,
+  ProductSpecs,
+} from "@/components/product/product-details";
 import { RelatedProducts } from "@/components/product/related-products";
 import { StickyPurchaseBar } from "@/components/product/sticky-purchase-bar";
 import { Reveal } from "@/components/animations/reveal";
@@ -23,7 +33,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const p = getProductBySlug(slug);
   if (!p) return { title: "Product not found" };
-  return createMetadata({ title: p.seo.title, description: p.seo.description, path: `/products/${p.slug}`, image: p.seo.ogImage ?? p.thumbnail.src, keywords: p.seo.keywords });
+  return createMetadata({
+    title: p.seo.title,
+    description: p.seo.description,
+    path: `/products/${p.slug}`,
+    image: p.seo.ogImage ?? p.thumbnail.src,
+    keywords: p.seo.keywords,
+  });
 }
 
 export default async function ProductPage({ params }: Props) {

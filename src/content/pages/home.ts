@@ -11,11 +11,29 @@ export const hero = {
 
 export const credibility = {
   eyebrow: "Built for the WordPress you actually run",
-  platforms: ["WordPress 6.4+", "Block editor", "Site editor", "WooCommerce 9", "PHP 8.1", "GPL licensed", "Freemius checkout", "WordPress.org"],
+  platforms: [
+    "WordPress 6.4+",
+    "Block editor",
+    "Site editor",
+    "WooCommerce 9",
+    "PHP 8.1",
+    "GPL licensed",
+    "Freemius checkout",
+    "WordPress.org",
+  ],
   commitments: [
-    { title: "Documented in detail", body: "Every product ships with installation, setup and customization guides, written by the people who built it." },
-    { title: "Updated, not abandoned", body: "Themes and plugins are tested against each WordPress release. Updates arrive in your WordPress admin through Freemius." },
-    { title: "Answered by the developer", body: "Support requests go to the engineers who wrote the code, with a clear response-time commitment on every plan." },
+    {
+      title: "Documented in detail",
+      body: "Every product ships with installation, setup and customization guides, written by the people who built it.",
+    },
+    {
+      title: "Updated, not abandoned",
+      body: "Themes and plugins are tested against each WordPress release. Updates arrive in your WordPress admin through Freemius.",
+    },
+    {
+      title: "Answered by the developer",
+      body: "Support requests go to the engineers who wrote the code, with a clear response-time commitment on every plan.",
+    },
   ],
 };
 
@@ -24,33 +42,72 @@ export const steps = [
     n: "01",
     title: "Explore and choose",
     body: "Browse the catalog, open a live demo at any screen size, compare license tiers, and pick the product that fits the job.",
-    detail: "Every product page shows version, update date, compatibility and a full changelog before you buy.",
+    detail:
+      "Every product page shows version, update date, compatibility and a full changelog before you buy.",
   },
   {
     n: "02",
     title: "Download and install",
     body: "Checkout runs through Freemius. You receive the download and a license key immediately, then upload the zip in your WordPress admin.",
-    detail: "Activate the license once and updates appear in the WordPress updates screen like any other plugin or theme.",
+    detail:
+      "Activate the license once and updates appear in the WordPress updates screen like any other plugin or theme.",
   },
   {
     n: "03",
     title: "Customize and launch",
     body: "Import the demo content if you like, adjust colours and typography in the site editor, and publish. No page builder required.",
-    detail: "Need a hand? Documentation and developer support are included with every license.",
+    detail:
+      "Need a hand? Documentation and developer support are included with every license.",
   },
 ];
 
-export const statements = ["Designed with purpose.", "Built for creators.", "Made to perform."];
+export const statements = [
+  "Designed with purpose.",
+  "Built for creators.",
+  "Made to perform.",
+];
 
 export const benefits = [
-  { n: "01", title: "Thoughtful user experience", body: "Interfaces that explain themselves: sensible defaults, clear states, nothing hidden behind a wall of toggles." },
-  { n: "02", title: "Maintainable code", body: "Native WordPress APIs, block templates and standard hooks. Nothing that fights the next core update." },
-  { n: "03", title: "Responsive by design", body: "Layouts are recomposed for each screen, not just shrunk. Tested at nine viewports before every release." },
-  { n: "04", title: "Accessible", body: "Keyboard navigation, visible focus, semantic markup and contrast checked against WCAG 2.2 AA." },
-  { n: "05", title: "Clear documentation", body: "Written guides for installation, setup and customization, kept in step with each version." },
-  { n: "06", title: "Product updates", body: "Compatibility updates for WordPress, WooCommerce and PHP releases, delivered in your admin." },
-  { n: "07", title: "Developer support", body: "Questions are answered by the engineers who built the product, not a ticket queue." },
-  { n: "08", title: "Easy customization", body: "Style variations, patterns and theme.json settings so you can make it yours without touching PHP." },
+  {
+    n: "01",
+    title: "Thoughtful user experience",
+    body: "Interfaces that explain themselves: sensible defaults, clear states, nothing hidden behind a wall of toggles.",
+  },
+  {
+    n: "02",
+    title: "Maintainable code",
+    body: "Native WordPress APIs, block templates and standard hooks. Nothing that fights the next core update.",
+  },
+  {
+    n: "03",
+    title: "Responsive by design",
+    body: "Layouts are recomposed for each screen, not just shrunk. Tested at nine viewports before every release.",
+  },
+  {
+    n: "04",
+    title: "Accessible",
+    body: "Keyboard navigation, visible focus, semantic markup and contrast checked against WCAG 2.2 AA.",
+  },
+  {
+    n: "05",
+    title: "Clear documentation",
+    body: "Written guides for installation, setup and customization, kept in step with each version.",
+  },
+  {
+    n: "06",
+    title: "Product updates",
+    body: "Compatibility updates for WordPress, WooCommerce and PHP releases, delivered in your admin.",
+  },
+  {
+    n: "07",
+    title: "Developer support",
+    body: "Questions are answered by the engineers who built the product, not a ticket queue.",
+  },
+  {
+    n: "08",
+    title: "Easy customization",
+    body: "Style variations, patterns and theme.json settings so you can make it yours without touching PHP.",
+  },
 ];
 
 export const experience = {

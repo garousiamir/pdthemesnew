@@ -7,7 +7,8 @@ import {
   useState,
   useTransition,
 } from "react";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { useUrlParam } from "@/hooks/use-url-param";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { PackageOpen } from "lucide-react";
 import type { CatalogFilter, Product } from "@/types";
@@ -42,25 +43,25 @@ export function Catalog({
 }: Props) {
   const router = useRouter();
   const pathname = usePathname();
-  const params = useSearchParams();
-  const fromUrl = (params.get("filter") as CatalogFilter | null) ?? null;
-  const [filter, setFilter] = useState<CatalogFilter>(
-    fromUrl && catalogFilters.some((f) => f.id === fromUrl)
-      ? fromUrl
-      : initialFilter,
-  );
+  const urlFilter = useUrlParam("filter") as CatalogFilter | null;
+  const [chosen, setChosen] = useState<CatalogFilter | null>(null);
+  const filter: CatalogFilter =
+    chosen ??
+    (urlFilter && catalogFilters.some((f) => f.id === urlFilter)
+      ? urlFilter
+      : initialFilter);
+  const setFilter = (f: CatalogFilter) => setChosen(f);
   const deferred = useDeferredValue(filter);
   const [pending, startTransition] = useTransition();
 
   useEffect(() => {
-    if (!syncUrl) return;
-    const sp = new URLSearchParams(params.toString());
-    if (filter === "all") sp.delete("filter");
-    else sp.set("filter", filter);
+    if (!syncUrl || chosen === null) return;
+    const sp = new URLSearchParams(window.location.search);
+    if (chosen === "all") sp.delete("filter");
+    else sp.set("filter", chosen);
     const qs = sp.toString();
     router.replace(qs ? `${pathname}?${qs}` : pathname, { scroll: false });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [filter]);
+  }, [chosen, syncUrl, pathname, router]);
 
   const visibleFilters = useMemo(
     () => catalogFilters.filter((f) => !filters || filters.includes(f.id)),

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useUrlParam } from "@/hooks/use-url-param";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import type { BlogPostMeta } from "@/types";
 import { PostCard } from "./post-card";
@@ -16,11 +16,11 @@ export function BlogList({
   posts: BlogPostMeta[];
   categories: string[];
 }) {
-  const params = useSearchParams();
-  const fromUrl = params.get("category");
-  const [cat, setCat] = useState(
-    fromUrl && categories.includes(fromUrl) ? fromUrl : "All",
-  );
+  const fromUrl = useUrlParam("category");
+  const [chosen, setChosen] = useState<string | null>(null);
+  const cat =
+    chosen ?? (fromUrl && categories.includes(fromUrl) ? fromUrl : "All");
+  const setCat = (c: string) => setChosen(c);
   const list = cat === "All" ? posts : posts.filter((p) => p.category === cat);
   const [first, ...rest] = list;
   return (

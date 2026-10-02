@@ -31,7 +31,9 @@ test.describe("Navigation", () => {
     await themes.hover();
     const menu = page.locator("#menu-themes");
     await expect(menu).toBeVisible();
-    await expect(menu.getByRole("link", { name: /Aurum/ })).toBeVisible();
+    await expect(
+      menu.getByRole("link", { name: /Aurum/ }).first(),
+    ).toBeVisible();
     await page.keyboard.press("Escape");
     await expect(menu).toHaveCount(0);
     await themes.focus();

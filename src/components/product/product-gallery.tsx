@@ -116,6 +116,7 @@ export function ProductGallery({
                 key={d}
                 type="button"
                 role="tab"
+                aria-label={deviceLabel[d]}
                 aria-selected={device === d}
                 onClick={() => setDevice(d)}
                 className={cn(

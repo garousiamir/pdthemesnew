@@ -3,7 +3,10 @@
 import type { Checkout } from "@freemius/checkout";
 import type { CheckoutConfig } from "./config";
 
-export type CheckoutResult = { status: "completed" | "closed" | "cancelled"; data?: unknown };
+export type CheckoutResult = {
+  status: "completed" | "closed" | "cancelled";
+  data?: unknown;
+};
 
 const instances = new Map<string, Checkout>();
 
@@ -16,7 +19,13 @@ const instances = new Map<string, Checkout>();
  */
 export async function openFreemiusCheckout(
   config: CheckoutConfig,
-  opts: { name: string; image?: string; onComplete?: (data: unknown) => void; onClose?: () => void; onCancel?: () => void } = { name: "" },
+  opts: {
+    name: string;
+    image?: string;
+    onComplete?: (data: unknown) => void;
+    onClose?: () => void;
+    onCancel?: () => void;
+  } = { name: "" },
 ) {
   const { Checkout } = await import("@freemius/checkout");
   let instance = instances.get(config.productId);

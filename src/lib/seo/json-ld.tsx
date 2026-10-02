@@ -7,7 +7,14 @@ import { startingPrice } from "@/lib/products";
 type Json = Record<string, unknown>;
 
 export function JsonLd({ data }: { data: Json | Json[] }) {
-  return <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data).replace(/</g, "\\u003c") }} />;
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(data).replace(/</g, "\\u003c"),
+      }}
+    />
+  );
 }
 
 export function organizationJsonLd(): Json {
@@ -32,11 +39,18 @@ export function websiteJsonLd(): Json {
   };
 }
 
-export function breadcrumbJsonLd(items: { name: string; path: string }[]): Json {
+export function breadcrumbJsonLd(
+  items: { name: string; path: string }[],
+): Json {
   return {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: absoluteUrl(it.path) })),
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: absoluteUrl(it.path),
+    })),
   };
 }
 
@@ -53,15 +67,22 @@ export function productJsonLd(p: Product): Json {
     description: p.description,
     url: absoluteUrl(`/products/${p.slug}`),
     image: absoluteUrl(p.thumbnail.src),
-    applicationCategory: p.type === "theme" ? "DesignApplication" : "DeveloperApplication",
-    applicationSubCategory: p.type === "theme" ? "WordPress theme" : "WordPress plugin",
+    applicationCategory:
+      p.type === "theme" ? "DesignApplication" : "DeveloperApplication",
+    applicationSubCategory:
+      p.type === "theme" ? "WordPress theme" : "WordPress plugin",
     operatingSystem: "WordPress",
     softwareVersion: p.version,
     dateModified: p.updatedAt,
     author: { "@type": "Organization", name: site.name, url: site.url },
   };
   if (p.pricing.free) {
-    data.offers = { "@type": "Offer", price: 0, priceCurrency: p.pricing.currency, availability: "https://schema.org/InStock" };
+    data.offers = {
+      "@type": "Offer",
+      price: 0,
+      priceCurrency: p.pricing.currency,
+      availability: "https://schema.org/InStock",
+    };
   } else if (p.status === "live" && p.pricing.tiers.length) {
     data.offers = {
       "@type": "AggregateOffer",
@@ -84,7 +105,11 @@ export function articleJsonLd(post: BlogPostMeta): Json {
     datePublished: post.date,
     dateModified: post.updated ?? post.date,
     author: { "@type": "Organization", name: post.author },
-    publisher: { "@type": "Organization", name: site.name, logo: { "@type": "ImageObject", url: absoluteUrl("/icon.svg") } },
+    publisher: {
+      "@type": "Organization",
+      name: site.name,
+      logo: { "@type": "ImageObject", url: absoluteUrl("/icon.svg") },
+    },
     mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
   };
 }
@@ -93,6 +118,10 @@ export function faqJsonLd(items: { question: string; answer: string }[]): Json {
   return {
     "@context": "https://schema.org",
     "@type": "FAQPage",
-    mainEntity: items.map((f) => ({ "@type": "Question", name: f.question, acceptedAnswer: { "@type": "Answer", text: f.answer } })),
+    mainEntity: items.map((f) => ({
+      "@type": "Question",
+      name: f.question,
+      acceptedAnswer: { "@type": "Answer", text: f.answer },
+    })),
   };
 }

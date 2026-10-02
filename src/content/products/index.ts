@@ -13,6 +13,13 @@ import gridwerk from "./gridwerk";
  * `defineProduct({...})`, generate its screenshots with `npm run images`
  * (or drop real screenshots into public/images/products/<slug>/), then add it here.
  */
-export const products: Product[] = [aurum, kontor, nordlicht, gazette, lumen, formwerk, tempo, gridwerk].sort(
-  (a, b) => a.order - b.order,
-);
+export const products: Product[] = [
+  aurum,
+  kontor,
+  nordlicht,
+  gazette,
+  lumen,
+  formwerk,
+  tempo,
+  gridwerk,
+].sort((a, b) => a.order - b.order);

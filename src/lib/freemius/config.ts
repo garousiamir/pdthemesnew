@@ -29,16 +29,27 @@ export function isDemoMode(p?: Product): boolean {
   return false;
 }
 
-export function checkoutConfigFor(p: Product, tierId?: string): CheckoutConfig | null {
+export function checkoutConfigFor(
+  p: Product,
+  tierId?: string,
+): CheckoutConfig | null {
   if (!p.freemiusProductId) return null;
-  const tier = p.pricing.tiers.find((t) => t.id === tierId) ?? p.pricing.tiers.find((t) => t.highlighted) ?? p.pricing.tiers[0];
+  const tier =
+    p.pricing.tiers.find((t) => t.id === tierId) ??
+    p.pricing.tiers.find((t) => t.highlighted) ??
+    p.pricing.tiers[0];
   return {
     productId: p.freemiusProductId,
     publicKey: p.freemiusPublicKey,
     planId: tier?.freemiusPlanId ?? p.freemiusPlanIds[0],
     pricingId: tier?.freemiusPricingId,
     licenses: tier?.sites,
-    billingCycle: tier?.billingCycle === "one-time" ? "lifetime" : tier?.billingCycle === "monthly" ? "monthly" : "annual",
+    billingCycle:
+      tier?.billingCycle === "one-time"
+        ? "lifetime"
+        : tier?.billingCycle === "monthly"
+          ? "monthly"
+          : "annual",
     currency: p.pricing.currency.toLowerCase(),
   };
 }

@@ -5,7 +5,11 @@ import { absoluteUrl } from "@/lib/utils";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
-  const statics: { path: string; priority: number; freq: MetadataRoute.Sitemap[number]["changeFrequency"] }[] = [
+  const statics: {
+    path: string;
+    priority: number;
+    freq: MetadataRoute.Sitemap[number]["changeFrequency"];
+  }[] = [
     { path: "/", priority: 1, freq: "weekly" },
     { path: "/products", priority: 0.9, freq: "weekly" },
     { path: "/themes", priority: 0.9, freq: "weekly" },
@@ -25,8 +29,23 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { path: "/legal/imprint", priority: 0.2, freq: "yearly" },
   ];
   return [
-    ...statics.map((s) => ({ url: absoluteUrl(s.path), lastModified: now, changeFrequency: s.freq, priority: s.priority })),
-    ...getProducts().map((p) => ({ url: absoluteUrl(`/products/${p.slug}`), lastModified: new Date(p.updatedAt), changeFrequency: "monthly" as const, priority: 0.8 })),
-    ...getAllPosts().map((p) => ({ url: absoluteUrl(`/blog/${p.slug}`), lastModified: new Date(p.updated ?? p.date), changeFrequency: "yearly" as const, priority: 0.6 })),
+    ...statics.map((s) => ({
+      url: absoluteUrl(s.path),
+      lastModified: now,
+      changeFrequency: s.freq,
+      priority: s.priority,
+    })),
+    ...getProducts().map((p) => ({
+      url: absoluteUrl(`/products/${p.slug}`),
+      lastModified: new Date(p.updatedAt),
+      changeFrequency: "monthly" as const,
+      priority: 0.8,
+    })),
+    ...getAllPosts().map((p) => ({
+      url: absoluteUrl(`/blog/${p.slug}`),
+      lastModified: new Date(p.updated ?? p.date),
+      changeFrequency: "yearly" as const,
+      priority: 0.6,
+    })),
   ];
 }

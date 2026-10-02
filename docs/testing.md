@@ -43,6 +43,10 @@ What *was* done, in three passes over PDThemes itself:
 - Demo/placeholder notices standardised (`DemoNotice`), badge tones aligned (`sun` for demo, `moss` for free, `accent` for sale).
 - Footer wordmark sized to bleed to the container edge; blog cover compositions generated in the brand palette.
 
+### Pass 2b — hydration and modals
+- Dialogs (checkout, demo viewer, lightbox, search, mobile menu) were positioned relative to GSAP-transformed ancestors (a `transform` makes them the containing block for `position: fixed`), which pushed them off-screen on phones → every modal now renders through `Portal` into `document.body`.
+- `useSearchParams` forced a Suspense fallback into the prerendered HTML of the catalog, blog and contact pages (product cards missing from static HTML) → replaced with `useUrlParam()`, a `useSyncExternalStore` read of `location.search`.
+
 ### Pass 3 — motion and interaction
 - "How it works" step highlight was out of sync with the stage crossfade → active index now derived from timeline time (crossfades centred at seconds 1 and 2).
 - Search overlay and demo viewer refactored to mount-fresh panels (no state resets in effects); Lenis exposed through a ref so modals can stop it without re-rendering the tree.

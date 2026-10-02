@@ -43,4 +43,5 @@
 | Webhook returns 401 | wrong secret or body re-serialised by a proxy | compare the secret key; ensure the raw body reaches the route |
 | Headline invisible | a parent tween animates the headline's opacity while `SplitHeadline` waits for fonts | exclude the `h1` from parent tweens (see `product-hero.tsx`) |
 | Horizontal scroll on phones | a grid child with un-wrappable content | add `min-w-0` to the grid column; run `npm run shots -- <route> 375` |
+| A dialog opens off-screen or clipped | it is rendered inside an animated ancestor | wrap it in `<Portal>` (`src/components/ui/portal.tsx`) |
 | Scroll feels stuck after closing a modal | `useScrollLock` not released | ensure the modal unmounts (AnimatePresence) and `locked` becomes false |

@@ -5,16 +5,60 @@ import type { Screenshot } from "@/lib/validation/product";
  * `npm run images` (scripts/generate-product-images.mjs) into
  * public/images/products/<slug>/ and are original PDThemes placeholders.
  */
-export function shots(slug: string, name: string): { thumbnail: Screenshot; gallery: Screenshot[] } {
+export function shots(
+  slug: string,
+  name: string,
+): { thumbnail: Screenshot; gallery: Screenshot[] } {
   const base = `/images/products/${slug}`;
   return {
-    thumbnail: { src: `${base}/desktop.jpg`, alt: `${name} — desktop preview (placeholder screenshot)`, width: 1440, height: 900, device: "desktop" },
+    thumbnail: {
+      src: `${base}/desktop.jpg`,
+      alt: `${name} — desktop preview (placeholder screenshot)`,
+      width: 1440,
+      height: 900,
+      device: "desktop",
+    },
     gallery: [
-      { src: `${base}/desktop.jpg`, alt: `${name} — desktop homepage (placeholder screenshot)`, width: 1440, height: 900, device: "desktop", caption: "Homepage, desktop" },
-      { src: `${base}/desktop-2.jpg`, alt: `${name} — desktop inner page (placeholder screenshot)`, width: 1440, height: 900, device: "desktop", caption: "Inner page, desktop" },
-      { src: `${base}/tablet.jpg`, alt: `${name} — tablet layout (placeholder screenshot)`, width: 834, height: 1112, device: "tablet", caption: "Tablet" },
-      { src: `${base}/mobile.jpg`, alt: `${name} — mobile layout (placeholder screenshot)`, width: 390, height: 844, device: "mobile", caption: "Mobile" },
-      { src: `${base}/full.jpg`, alt: `${name} — full-page preview (placeholder screenshot)`, width: 1440, height: 2600, device: "full-page", caption: "Full homepage" },
+      {
+        src: `${base}/desktop.jpg`,
+        alt: `${name} — desktop homepage (placeholder screenshot)`,
+        width: 1440,
+        height: 900,
+        device: "desktop",
+        caption: "Homepage, desktop",
+      },
+      {
+        src: `${base}/desktop-2.jpg`,
+        alt: `${name} — desktop inner page (placeholder screenshot)`,
+        width: 1440,
+        height: 900,
+        device: "desktop",
+        caption: "Inner page, desktop",
+      },
+      {
+        src: `${base}/tablet.jpg`,
+        alt: `${name} — tablet layout (placeholder screenshot)`,
+        width: 834,
+        height: 1112,
+        device: "tablet",
+        caption: "Tablet",
+      },
+      {
+        src: `${base}/mobile.jpg`,
+        alt: `${name} — mobile layout (placeholder screenshot)`,
+        width: 390,
+        height: 844,
+        device: "mobile",
+        caption: "Mobile",
+      },
+      {
+        src: `${base}/full.jpg`,
+        alt: `${name} — full-page preview (placeholder screenshot)`,
+        width: 1440,
+        height: 2600,
+        device: "full-page",
+        caption: "Full homepage",
+      },
     ],
   };
 }
@@ -42,8 +86,14 @@ export function themeTiers(single: number, studio: number, agency: number) {
       sites: 1,
       price: single,
       billingCycle: "annual" as const,
-      renewalNote: "Renews yearly for updates and support. Cancel any time; the theme keeps working.",
-      features: ["1 website", "1 year of updates", "1 year of priority support", "Demo content and starter patterns"],
+      renewalNote:
+        "Renews yearly for updates and support. Cancel any time; the theme keeps working.",
+      features: [
+        "1 website",
+        "1 year of updates",
+        "1 year of priority support",
+        "Demo content and starter patterns",
+      ],
     },
     {
       id: "studio",
@@ -52,7 +102,13 @@ export function themeTiers(single: number, studio: number, agency: number) {
       price: studio,
       billingCycle: "annual" as const,
       renewalNote: "Renews yearly for updates and support.",
-      features: ["Up to 5 websites", "1 year of updates", "1 year of priority support", "Demo content and starter patterns", "Client-site activations"],
+      features: [
+        "Up to 5 websites",
+        "1 year of updates",
+        "1 year of priority support",
+        "Demo content and starter patterns",
+        "Client-site activations",
+      ],
       highlighted: true,
     },
     {
@@ -62,7 +118,14 @@ export function themeTiers(single: number, studio: number, agency: number) {
       price: agency,
       billingCycle: "annual" as const,
       renewalNote: "Renews yearly for updates and support.",
-      features: ["Unlimited websites", "1 year of updates", "1 year of priority support", "Demo content and starter patterns", "Client-site activations", "White-label admin notices"],
+      features: [
+        "Unlimited websites",
+        "1 year of updates",
+        "1 year of priority support",
+        "Demo content and starter patterns",
+        "Client-site activations",
+        "White-label admin notices",
+      ],
     },
   ];
 }

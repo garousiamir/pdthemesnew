@@ -32,7 +32,11 @@ export const site = {
 
 export type NavLink = { label: string; href: string; description?: string };
 
-export const primaryNav: { label: string; href: string; menu?: "themes" | "plugins" }[] = [
+export const primaryNav: {
+  label: string;
+  href: string;
+  menu?: "themes" | "plugins";
+}[] = [
   { label: "Themes", href: "/themes", menu: "themes" },
   { label: "Plugins", href: "/plugins", menu: "plugins" },
   { label: "All Products", href: "/products" },

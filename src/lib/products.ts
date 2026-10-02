@@ -1,6 +1,10 @@
 import { products } from "@/content/products";
 import type { CatalogFilter } from "@/types";
-import type { Product, ProductCategory, ProductType } from "@/lib/validation/product";
+import type {
+  Product,
+  ProductCategory,
+  ProductType,
+} from "@/lib/validation/product";
 
 export const categoryLabels: Record<ProductCategory, string> = {
   woocommerce: "WooCommerce",
@@ -52,7 +56,9 @@ export function getFreeProducts(): Product[] {
 }
 
 export function isFreeOrFreemium(p: Product) {
-  return p.pricing.free || Boolean(p.wordpressOrgUrl) || Boolean(p.freeDownloadUrl);
+  return (
+    p.pricing.free || Boolean(p.wordpressOrgUrl) || Boolean(p.freeDownloadUrl)
+  );
 }
 
 export function matchesFilter(p: Product, filter: CatalogFilter): boolean {
@@ -75,9 +81,13 @@ export function filterProducts(filter: CatalogFilter): Product[] {
 }
 
 export function getRelatedProducts(p: Product, limit = 3): Product[] {
-  const related = p.relatedSlugs.map((s) => getProductBySlug(s)).filter((x): x is Product => Boolean(x) && x!.slug !== p.slug);
+  const related = p.relatedSlugs
+    .map((s) => getProductBySlug(s))
+    .filter((x): x is Product => Boolean(x) && x!.slug !== p.slug);
   if (related.length >= limit) return related.slice(0, limit);
-  const fill = getProducts().filter((x) => x.slug !== p.slug && !related.includes(x) && x.type === p.type);
+  const fill = getProducts().filter(
+    (x) => x.slug !== p.slug && !related.includes(x) && x.type === p.type,
+  );
   return [...related, ...fill].slice(0, limit);
 }
 
@@ -88,14 +98,23 @@ export function startingPrice(p: Product): number {
 }
 
 export function hasSale(p: Product): boolean {
-  return p.pricing.tiers.some((t) => typeof t.compareAtPrice === "number" && t.compareAtPrice > t.price);
+  return p.pricing.tiers.some(
+    (t) => typeof t.compareAtPrice === "number" && t.compareAtPrice > t.price,
+  );
 }
 
 export function searchProducts(query: string): Product[] {
   const q = query.trim().toLowerCase();
   if (!q) return [];
   return getProducts().filter((p) =>
-    [p.name, p.tagline, p.description, categoryLabels[p.category], typeLabels[p.type], ...p.highlights]
+    [
+      p.name,
+      p.tagline,
+      p.description,
+      categoryLabels[p.category],
+      typeLabels[p.type],
+      ...p.highlights,
+    ]
       .join(" ")
       .toLowerCase()
       .includes(q),

@@ -62,7 +62,7 @@ docs/
 ## Rendering model
 
 - Every page is prerendered at build time (`○` or `●` in the build output). Product and blog pages use `generateStaticParams`.
-- Pages that react to query strings (`/products?filter=`, `/blog?category=`, `/contact?topic=`) read them on the client inside `<Suspense>`, so they stay static.
+- Pages that react to query strings (`/products?filter=`, `/blog?category=`, `/contact?topic=`) read them on the client with `useUrlParam()` (`useSyncExternalStore` over `location.search`), so the full content is in the prerendered HTML and no Suspense fallback replaces it.
 - Only the three API routes are dynamic.
 - Cache Components are not enabled; the default static model is sufficient because there is no per-request data.
 

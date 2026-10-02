@@ -28,9 +28,15 @@ export const webhookEventSchema = z
 
 export type WebhookEvent = z.infer<typeof webhookEventSchema>;
 
-export function verifySignature(rawBody: string, signature: string | null, secret: string): boolean {
+export function verifySignature(
+  rawBody: string,
+  signature: string | null,
+  secret: string,
+): boolean {
   if (!signature) return false;
-  const expected = createHmac("sha256", secret).update(rawBody, "utf8").digest("hex");
+  const expected = createHmac("sha256", secret)
+    .update(rawBody, "utf8")
+    .digest("hex");
   const a = Buffer.from(expected, "utf8");
   const b = Buffer.from(signature.trim().toLowerCase(), "utf8");
   if (a.length !== b.length) return false;
@@ -59,7 +65,18 @@ export class MemoryEventStore implements EventStore {
 }
 
 /** Events the site reacts to. Everything else is acknowledged and ignored. */
-export const handledEvents = ["license.created", "license.activated", "license.deactivated", "license.expired", "license.cancelled", "license.extended", "subscription.cancelled", "subscription.renewed", "payment.refund", "payment.created"] as const;
+export const handledEvents = [
+  "license.created",
+  "license.activated",
+  "license.deactivated",
+  "license.expired",
+  "license.cancelled",
+  "license.extended",
+  "subscription.cancelled",
+  "subscription.renewed",
+  "payment.refund",
+  "payment.created",
+] as const;
 
 export type Handler = (event: WebhookEvent) => Promise<void>;
 
@@ -68,6 +85,11 @@ export type Handler = (event: WebhookEvent) => Promise<void>;
  * (for example, to invalidate a cache or notify a support inbox).
  */
 export const defaultHandler: Handler = async (event) => {
-  const safe = { id: event.id, type: event.type, product: event.plugin_id, created: event.created };
+  const safe = {
+    id: event.id,
+    type: event.type,
+    product: event.plugin_id,
+    created: event.created,
+  };
   console.info("[freemius:webhook]", JSON.stringify(safe));
 };

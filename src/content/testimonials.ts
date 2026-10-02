@@ -10,7 +10,8 @@ import type { Testimonial } from "@/types";
 export const testimonials: Testimonial[] = [
   {
     id: "placeholder-1",
-    quote: "Placeholder quote. A real review will describe how the theme behaved during a client launch, and what support was like.",
+    quote:
+      "Placeholder quote. A real review will describe how the theme behaved during a client launch, and what support was like.",
     name: "Placeholder name",
     role: "Placeholder role, Placeholder studio",
     product: "Aurum",
@@ -18,7 +19,8 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "placeholder-2",
-    quote: "Placeholder quote. A real review will mention a specific feature, such as the case-study templates or the update process.",
+    quote:
+      "Placeholder quote. A real review will mention a specific feature, such as the case-study templates or the update process.",
     name: "Placeholder name",
     role: "Placeholder role, Placeholder agency",
     product: "Kontor",
@@ -26,7 +28,8 @@ export const testimonials: Testimonial[] = [
   },
   {
     id: "placeholder-3",
-    quote: "Placeholder quote. A real review will come from a verified purchase and include the reviewer's consent to be quoted.",
+    quote:
+      "Placeholder quote. A real review will come from a verified purchase and include the reviewer's consent to be quoted.",
     name: "Placeholder name",
     role: "Placeholder role",
     product: "Formwerk",

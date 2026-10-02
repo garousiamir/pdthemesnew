@@ -12,9 +12,17 @@ const frontmatterSchema = z.object({
   excerpt: z.string().min(1).max(240),
   category: z.string().min(1),
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  updated: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  updated: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional(),
   author: z.string().min(1).default("PDThemes Studio"),
-  image: z.object({ src: z.string(), alt: z.string(), width: z.number().default(1600), height: z.number().default(1000) }),
+  image: z.object({
+    src: z.string(),
+    alt: z.string(),
+    width: z.number().default(1600),
+    height: z.number().default(1000),
+  }),
   tags: z.array(z.string()).default([]),
   featured: z.boolean().default(false),
   draft: z.boolean().default(false),
@@ -27,7 +35,9 @@ function readPost(file: string): BlogPost | null {
   const { data, content } = matter(raw);
   const parsed = frontmatterSchema.safeParse(data);
   if (!parsed.success) {
-    throw new Error(`Invalid frontmatter in ${file}: ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(", ")}`);
+    throw new Error(
+      `Invalid frontmatter in ${file}: ${parsed.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`).join(", ")}`,
+    );
   }
   if (parsed.data.draft && process.env.NODE_ENV === "production") return null;
   const slug = file.replace(/\.mdx?$/, "");

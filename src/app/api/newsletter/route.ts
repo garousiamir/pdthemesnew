@@ -13,10 +13,17 @@ export async function POST(request: Request) {
   try {
     body = await request.json();
   } catch {
-    return Response.json({ ok: false, message: "Invalid request." }, { status: 400 });
+    return Response.json(
+      { ok: false, message: "Invalid request." },
+      { status: 400 },
+    );
   }
   const parsed = schema.safeParse(body);
-  if (!parsed.success) return Response.json({ ok: false, message: "Enter a valid email address." }, { status: 422 });
+  if (!parsed.success)
+    return Response.json(
+      { ok: false, message: "Enter a valid email address." },
+      { status: 422 },
+    );
 
   const endpoint = process.env.NEWSLETTER_ENDPOINT;
   if (!endpoint) return Response.json({ ok: true, demo: true });
@@ -24,13 +31,28 @@ export async function POST(request: Request) {
   try {
     const res = await fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json", ...(process.env.NEWSLETTER_TOKEN ? { Authorization: `Bearer ${process.env.NEWSLETTER_TOKEN}` } : {}) },
+      headers: {
+        "Content-Type": "application/json",
+        ...(process.env.NEWSLETTER_TOKEN
+          ? { Authorization: `Bearer ${process.env.NEWSLETTER_TOKEN}` }
+          : {}),
+      },
       body: JSON.stringify({ email: parsed.data.email, source: "pdthemes.de" }),
     });
     if (!res.ok) throw new Error(`Provider responded ${res.status}`);
     return Response.json({ ok: true });
   } catch (err) {
-    console.error("[newsletter] provider error", err instanceof Error ? err.message : err);
-    return Response.json({ ok: false, message: "We could not subscribe you right now. Please try again later." }, { status: 502 });
+    console.error(
+      "[newsletter] provider error",
+      err instanceof Error ? err.message : err,
+    );
+    return Response.json(
+      {
+        ok: false,
+        message:
+          "We could not subscribe you right now. Please try again later.",
+      },
+      { status: 502 },
+    );
   }
 }

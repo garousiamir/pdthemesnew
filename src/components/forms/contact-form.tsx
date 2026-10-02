@@ -3,7 +3,7 @@
 import { useState, type FormEvent } from "react";
 import { Check, Loader2, Send } from "lucide-react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useUrlParam } from "@/hooks/use-url-param";
 import { z } from "zod";
 import { cn } from "@/lib/utils";
 
@@ -36,21 +36,26 @@ export function ContactForm({
 }: {
   products: { slug: string; name: string }[];
 }) {
-  const params = useSearchParams();
-  const fromUrl = params.get("topic");
-  const defaultTopic =
+  const fromUrl = useUrlParam("topic");
+  const urlTopic =
     (["sales", "support", "licensing", "press", "other"] as const).find(
       (t) => t === fromUrl,
-    ) ?? "sales";
-  const [values, setValues] = useState<Values>({
+    ) ?? null;
+  const [topicChosen, setTopicChosen] = useState(false);
+  const [stored, setValues] = useState<Values>({
     name: "",
     email: "",
-    topic: defaultTopic,
+    topic: "sales",
     product: "",
     licenseKey: "",
     message: "",
     consent: false,
   });
+  // The URL topic applies until the visitor picks one explicitly.
+  const values: Values = {
+    ...stored,
+    topic: topicChosen ? stored.topic : (urlTopic ?? stored.topic),
+  };
   const [errors, setErrors] = useState<Errors>({});
   const [status, setStatus] = useState<
     "idle" | "loading" | "success" | "error"
@@ -59,6 +64,7 @@ export function ContactForm({
   const [website, setWebsite] = useState("");
 
   const set = <K extends keyof Values>(k: K, v: Values[K]) => {
+    if (k === "topic") setTopicChosen(true);
     setValues((s) => ({ ...s, [k]: v }));
     setErrors((e) => ({ ...e, [k]: undefined }));
   };

@@ -14,10 +14,14 @@ test.describe("Catalog and filtering", () => {
     });
     await page.getByRole("tab", { name: "WordPress Plugins" }).click();
     await expect(cards).toHaveCount(3);
-    expect(await page.evaluate(() => (window as unknown as { __noReload?: boolean }).__noReload)).toBe(true);
+    expect(
+      await page.evaluate(
+        () => (window as unknown as { __noReload?: boolean }).__noReload,
+      ),
+    ).toBe(true);
     await expect(page).toHaveURL(/filter=plugins/);
     await page.getByRole("tab", { name: "Free Products" }).click();
-    await expect(cards.first()).toBeVisible();
+    await expect(cards).toHaveCount(3);
     for (const c of await cards.all())
       await expect(c.getByText(/free/i).first()).toBeVisible();
     await page.getByRole("tab", { name: "All Products" }).click();
@@ -58,6 +62,7 @@ test.describe("Catalog and filtering", () => {
     request,
   }) => {
     await page.goto("/products");
+    await expect(page.locator("[data-testid='product-card']")).toHaveCount(8);
     const hrefs = await page
       .locator("[data-testid='product-card'] h3 a")
       .evaluateAll((as) =>

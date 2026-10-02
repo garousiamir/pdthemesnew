@@ -12,14 +12,21 @@ export const productCategorySchema = z.enum([
   "marketing",
 ]);
 
-export const productStatusSchema = z.enum(["live", "demo", "coming-soon", "retired"]);
+export const productStatusSchema = z.enum([
+  "live",
+  "demo",
+  "coming-soon",
+  "retired",
+]);
 
 export const screenshotSchema = z.object({
   src: z.string().min(1),
   alt: z.string().min(1),
   width: z.number().int().positive(),
   height: z.number().int().positive(),
-  device: z.enum(["desktop", "tablet", "mobile", "full-page"]).default("desktop"),
+  device: z
+    .enum(["desktop", "tablet", "mobile", "full-page"])
+    .default("desktop"),
   caption: z.string().optional(),
 });
 
@@ -66,7 +73,13 @@ export const storySectionSchema = z.object({
   bullets: z.array(z.string()).optional(),
   reverse: z.boolean().optional(),
   compare: z
-    .array(z.object({ label: z.string(), free: z.union([z.boolean(), z.string()]), pro: z.union([z.boolean(), z.string()]) }))
+    .array(
+      z.object({
+        label: z.string(),
+        free: z.union([z.boolean(), z.string()]),
+        pro: z.union([z.boolean(), z.string()]),
+      }),
+    )
     .optional(),
 });
 
@@ -76,7 +89,10 @@ export const changelogEntrySchema = z.object({
   changes: z.array(z.string().min(1)).min(1),
 });
 
-export const faqSchema = z.object({ question: z.string().min(1), answer: z.string().min(1) });
+export const faqSchema = z.object({
+  question: z.string().min(1),
+  answer: z.string().min(1),
+});
 
 export const seoSchema = z.object({
   title: z.string().min(1).max(70),
@@ -109,7 +125,10 @@ export const productSchema = z.object({
   story: z.array(storySectionSchema).default([]),
   version: z.string().min(1),
   updatedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
-  releasedAt: z.string().regex(/^\d{4}-\d{2}-\d{2}$/).optional(),
+  releasedAt: z
+    .string()
+    .regex(/^\d{4}-\d{2}-\d{2}$/)
+    .optional(),
   compatibility: z.object({
     wordpress: z.string().min(1),
     php: z.string().min(1),
@@ -154,8 +173,12 @@ export type ChangelogEntry = z.output<typeof changelogEntrySchema>;
 export function defineProduct(input: ProductInput): Product {
   const result = productSchema.safeParse(input);
   if (!result.success) {
-    const issues = result.error.issues.map((i) => `  • ${i.path.join(".") || "(root)"}: ${i.message}`).join("\n");
-    throw new Error(`Invalid product "${input.slug ?? input.id ?? "unknown"}":\n${issues}`);
+    const issues = result.error.issues
+      .map((i) => `  • ${i.path.join(".") || "(root)"}: ${i.message}`)
+      .join("\n");
+    throw new Error(
+      `Invalid product "${input.slug ?? input.id ?? "unknown"}":\n${issues}`,
+    );
   }
   return result.data;
 }

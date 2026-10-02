@@ -12,5 +12,9 @@ function subscribe(cb: () => void) {
 
 /** True when the visitor prefers reduced motion. Always false during SSR. */
 export function useReducedMotion() {
-  return useSyncExternalStore(subscribe, () => window.matchMedia(QUERY).matches, () => false);
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(QUERY).matches,
+    () => false,
+  );
 }

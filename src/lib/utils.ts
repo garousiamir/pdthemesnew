@@ -7,10 +7,18 @@ export function cn(...inputs: ClassValue[]) {
 
 export function formatDate(input: string | Date, locale = "en-GB") {
   const date = typeof input === "string" ? new Date(input) : input;
-  return new Intl.DateTimeFormat(locale, { year: "numeric", month: "short", day: "numeric" }).format(date);
+  return new Intl.DateTimeFormat(locale, {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+  }).format(date);
 }
 
-export function formatPrice(amount: number, currency = "USD", locale = "en-US") {
+export function formatPrice(
+  amount: number,
+  currency = "USD",
+  locale = "en-US",
+) {
   return new Intl.NumberFormat(locale, {
     style: "currency",
     currency,
@@ -33,6 +41,8 @@ export function clamp(value: number, min: number, max: number) {
 }
 
 export function absoluteUrl(path = "/") {
-  const base = (process.env.NEXT_PUBLIC_SITE_URL ?? "https://pdthemes.de").replace(/\/$/, "");
+  const base = (
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://pdthemes.de"
+  ).replace(/\/$/, "");
   return `${base}${path.startsWith("/") ? path : `/${path}`}`;
 }
