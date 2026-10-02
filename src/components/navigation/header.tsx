@@ -15,7 +15,11 @@ import { MobileMenu } from "./mobile-menu";
 import { SearchOverlay } from "./search-overlay";
 import { cn } from "@/lib/utils";
 
-type Props = { themes: Product[]; plugins: Product[]; searchItems: SearchItem[] };
+type Props = {
+  themes: Product[];
+  plugins: Product[];
+  searchItems: SearchItem[];
+};
 
 export function Header({ themes, plugins, searchItems }: Props) {
   const [scrolled, setScrolled] = useState(false);
@@ -75,7 +79,8 @@ export function Header({ themes, plugins, searchItems }: Props) {
   // Close mega menu when focus leaves the nav.
   useEffect(() => {
     const onFocusIn = (e: FocusEvent) => {
-      if (navRef.current && !navRef.current.contains(e.target as Node)) setOpenMenu(null);
+      if (navRef.current && !navRef.current.contains(e.target as Node))
+        setOpenMenu(null);
     };
     document.addEventListener("focusin", onFocusIn);
     return () => document.removeEventListener("focusin", onFocusIn);
@@ -94,24 +99,45 @@ export function Header({ themes, plugins, searchItems }: Props) {
 
   return (
     <>
-      <a href="#main" className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-ink focus:px-4 focus:py-2 focus:text-paper"
+      >
         Skip to content
       </a>
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[transform,background-color,border-color,backdrop-filter] duration-base ease-out-expo",
-          scrolled ? "border-b border-stone-200/70 bg-paper/85 backdrop-blur-md" : "border-b border-transparent bg-transparent",
-          hidden && !openMenu && !mobileOpen ? "-translate-y-full" : "translate-y-0",
+          scrolled
+            ? "border-b border-stone-200/70 bg-paper/85 backdrop-blur-md"
+            : "border-b border-transparent bg-transparent",
+          hidden && !openMenu && !mobileOpen
+            ? "-translate-y-full"
+            : "translate-y-0",
         )}
         data-scrolled={scrolled}
         onMouseLeave={scheduleClose}
       >
-        <nav ref={navRef} aria-label="Primary" className={cn("container-x relative flex items-center justify-between transition-[height] duration-base ease-out-expo", scrolled ? "h-16" : "h-(--header-h)")}>
-          <Logo className={cn("transition-transform duration-base ease-out-expo", scrolled && "scale-[0.92] origin-left")} />
+        <nav
+          ref={navRef}
+          aria-label="Primary"
+          className={cn(
+            "container-x relative flex items-center justify-between transition-[height] duration-base ease-out-expo",
+            scrolled ? "h-16" : "h-(--header-h)",
+          )}
+        >
+          <Logo
+            className={cn(
+              "transition-transform duration-base ease-out-expo",
+              scrolled && "scale-[0.92] origin-left",
+            )}
+          />
 
           <ul className="absolute left-1/2 hidden -translate-x-1/2 items-center gap-1 lg:flex">
             {primaryNav.map((item) => {
-              const active = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/"));
+              const active =
+                pathname === item.href ||
+                (item.href !== "/" && pathname.startsWith(item.href + "/"));
               const isMenu = Boolean(item.menu);
               const expanded = openMenu === item.menu;
               return (
@@ -128,7 +154,9 @@ export function Header({ themes, plugins, searchItems }: Props) {
                     href={item.href}
                     className={cn(
                       "flex h-9 items-center gap-1 rounded-full px-3.5 text-[14px] font-medium transition-colors",
-                      active || expanded ? "bg-ink/[0.06] text-ink" : "text-stone-700 hover:bg-ink/[0.05] hover:text-ink",
+                      active || expanded
+                        ? "bg-ink/[0.06] text-ink"
+                        : "text-stone-700 hover:bg-ink/[0.05] hover:text-ink",
                     )}
                     aria-haspopup={isMenu ? "true" : undefined}
                     aria-expanded={isMenu ? expanded : undefined}
@@ -137,12 +165,24 @@ export function Header({ themes, plugins, searchItems }: Props) {
                       if (isMenu && (e.key === "ArrowDown" || e.key === " ")) {
                         e.preventDefault();
                         setOpenMenu(item.menu!);
-                        requestAnimationFrame(() => document.querySelector<HTMLElement>(`#menu-${item.menu} a`)?.focus());
+                        requestAnimationFrame(() =>
+                          document
+                            .querySelector<HTMLElement>(`#menu-${item.menu} a`)
+                            ?.focus(),
+                        );
                       }
                     }}
                   >
                     {item.label}
-                    {isMenu && <ChevronDown className={cn("size-3.5 transition-transform duration-base", expanded && "rotate-180")} aria-hidden />}
+                    {isMenu && (
+                      <ChevronDown
+                        className={cn(
+                          "size-3.5 transition-transform duration-base",
+                          expanded && "rotate-180",
+                        )}
+                        aria-hidden
+                      />
+                    )}
                   </Link>
                 </li>
               );
@@ -168,7 +208,12 @@ export function Header({ themes, plugins, searchItems }: Props) {
               <UserRound className="size-[18px]" aria-hidden />
               <span className="hidden xl:inline">My Licenses</span>
             </a>
-            <Button href="/products" variant="primary" size="sm" className="hidden sm:inline-flex">
+            <Button
+              href="/products"
+              variant="primary"
+              size="sm"
+              className="hidden sm:inline-flex"
+            >
               Explore Products
             </Button>
             <button
@@ -182,17 +227,36 @@ export function Header({ themes, plugins, searchItems }: Props) {
             </button>
           </div>
 
-          <div className="absolute inset-x-0 top-full" onMouseEnter={cancelClose} onMouseLeave={scheduleClose}>
+          <div
+            className="absolute inset-x-0 top-full"
+            onMouseEnter={cancelClose}
+            onMouseLeave={scheduleClose}
+          >
             <AnimatePresence>
               {openMenu && (
-                <MegaMenu key={openMenu} id={`menu-${openMenu}`} kind={openMenu} products={openMenu === "themes" ? themes : plugins} onNavigate={() => setOpenMenu(null)} />
+                <MegaMenu
+                  key={openMenu}
+                  id={`menu-${openMenu}`}
+                  kind={openMenu}
+                  products={openMenu === "themes" ? themes : plugins}
+                  onNavigate={() => setOpenMenu(null)}
+                />
               )}
             </AnimatePresence>
           </div>
         </nav>
       </header>
-      <MobileMenu open={mobileOpen} onClose={closeMobile} themes={themes} plugins={plugins} />
-      <SearchOverlay open={searchOpen} onClose={closeSearch} items={searchItems} />
+      <MobileMenu
+        open={mobileOpen}
+        onClose={closeMobile}
+        themes={themes}
+        plugins={plugins}
+      />
+      <SearchOverlay
+        open={searchOpen}
+        onClose={closeSearch}
+        items={searchItems}
+      />
     </>
   );
 }

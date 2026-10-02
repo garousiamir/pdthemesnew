@@ -38,7 +38,11 @@ export function MegaMenu({ id, kind, products, onNavigate }: Props) {
         <div className="p-3">
           <div className="flex items-center justify-between px-3 pb-2 pt-2">
             <p className="eyebrow">{title}</p>
-            <Link href={href} onClick={onNavigate} className="link-underline text-xs font-medium text-stone-600 hover:text-ink">
+            <Link
+              href={href}
+              onClick={onNavigate}
+              className="link-underline text-xs font-medium text-stone-600 hover:text-ink"
+            >
               View all
             </Link>
           </div>
@@ -48,7 +52,11 @@ export function MegaMenu({ id, kind, products, onNavigate }: Props) {
                 key={p.slug}
                 initial={{ opacity: 0, x: -6 }}
                 animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.04 + i * 0.03, duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: 0.04 + i * 0.03,
+                  duration: 0.3,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 <Link
                   href={`/products/${p.slug}`}
@@ -57,18 +65,26 @@ export function MegaMenu({ id, kind, products, onNavigate }: Props) {
                   onFocus={() => setActive(p)}
                   className={cn(
                     "group flex items-start justify-between gap-4 rounded-md px-3 py-2.5 transition-colors",
-                    active?.slug === p.slug ? "bg-paper-2" : "hover:bg-paper-2/70",
+                    active?.slug === p.slug
+                      ? "bg-paper-2"
+                      : "hover:bg-paper-2/70",
                   )}
                 >
                   <span>
                     <span className="flex items-center gap-2 font-medium text-ink">
                       {p.name}
                       {p.pricing.free && <Badge tone="moss">Free</Badge>}
-                      {p.status === "coming-soon" && <Badge tone="sun">Soon</Badge>}
+                      {p.status === "coming-soon" && (
+                        <Badge tone="sun">Soon</Badge>
+                      )}
                     </span>
-                    <span className="mt-0.5 block text-[13px] leading-snug text-stone-500">{p.tagline}</span>
+                    <span className="mt-0.5 block text-[13px] leading-snug text-stone-500">
+                      {p.tagline}
+                    </span>
                   </span>
-                  <span className="shrink-0 pt-0.5 font-mono text-[12px] text-stone-500">{categoryLabels[p.category]}</span>
+                  <span className="shrink-0 pt-0.5 font-mono text-[12px] text-stone-500">
+                    {categoryLabels[p.category]}
+                  </span>
                 </Link>
               </motion.li>
             ))}
@@ -76,7 +92,11 @@ export function MegaMenu({ id, kind, products, onNavigate }: Props) {
         </div>
         <div className="relative hidden border-l border-stone-200 bg-paper-2 p-5 md:block">
           {active && (
-            <Link href={`/products/${active.slug}`} onClick={onNavigate} className="group block">
+            <Link
+              href={`/products/${active.slug}`}
+              onClick={onNavigate}
+              className="group block"
+            >
               <div className="relative aspect-[16/10] overflow-hidden rounded-md bg-stone-200 shadow-card">
                 <Image
                   key={active.slug}
@@ -90,13 +110,24 @@ export function MegaMenu({ id, kind, products, onNavigate }: Props) {
               <div className="mt-4 flex items-end justify-between gap-4">
                 <div>
                   <p className="font-display text-xl">{active.name}</p>
-                  <p className="mt-0.5 text-[13px] text-stone-500">{active.description}</p>
+                  <p className="mt-0.5 text-[13px] text-stone-500">
+                    {active.description}
+                  </p>
                 </div>
-                <Price amount={startingPrice(active)} currency={active.pricing.currency} prefix={startingPrice(active) ? "from" : undefined} size="sm" className="shrink-0" />
+                <Price
+                  amount={startingPrice(active)}
+                  currency={active.pricing.currency}
+                  prefix={startingPrice(active) ? "from" : undefined}
+                  size="sm"
+                  className="shrink-0"
+                />
               </div>
               <span className="mt-3 inline-flex items-center gap-1.5 text-sm font-medium text-ink">
                 View details
-                <ArrowRight className="size-4 transition-transform duration-base ease-out-expo group-hover:translate-x-1" aria-hidden />
+                <ArrowRight
+                  className="size-4 transition-transform duration-base ease-out-expo group-hover:translate-x-1"
+                  aria-hidden
+                />
               </span>
             </Link>
           )}

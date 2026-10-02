@@ -24,7 +24,10 @@ export function Footer() {
   };
 
   return (
-    <footer className="dark-surface relative overflow-hidden" aria-labelledby="footer-heading">
+    <footer
+      className="dark-surface relative overflow-hidden"
+      aria-labelledby="footer-heading"
+    >
       <h2 id="footer-heading" className="sr-only">
         Site footer
       </h2>
@@ -32,7 +35,9 @@ export function Footer() {
         <Reveal className="grid gap-12 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-4" data-reveal>
             <Logo tone="paper" />
-            <p className="mt-5 max-w-[34ch] text-[15px] leading-relaxed text-stone-400">{site.description}</p>
+            <p className="mt-5 max-w-[34ch] text-[15px] leading-relaxed text-stone-400">
+              {site.description}
+            </p>
             <NewsletterForm className="mt-8 max-w-sm" />
           </div>
           <div className="grid grid-cols-2 gap-8 sm:grid-cols-4 lg:col-span-8">
@@ -42,7 +47,10 @@ export function Footer() {
                 <ul className="flex flex-col gap-2.5">
                   {group.links.map((l) => (
                     <li key={l.href}>
-                      <Link href={l.href} className="link-underline text-[15px] text-stone-300 hover:text-paper">
+                      <Link
+                        href={l.href}
+                        className="link-underline text-[15px] text-stone-300 hover:text-paper"
+                      >
                         {l.label}
                       </Link>
                     </li>
@@ -65,17 +73,32 @@ export function Footer() {
 
         <div className="mt-8 flex flex-col gap-4 border-t border-paper/10 pt-6 text-[13px] text-stone-400 md:flex-row md:items-center md:justify-between">
           <p>
-            © {new Date().getFullYear()} {site.legalName}. Made in {site.location}. All product names are trademarks of their respective owners.
+            © {new Date().getFullYear()} {site.legalName}. Made in{" "}
+            {site.location}. All product names are trademarks of their
+            respective owners.
           </p>
           <div className="flex flex-wrap items-center gap-x-5 gap-y-2">
             {social.map((s) => (
-              <a key={s.label} href={s.href} target="_blank" rel="noopener noreferrer" className="link-underline hover:text-paper">
+              <a
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline hover:text-paper"
+              >
                 {s.label}
               </a>
             ))}
-            <button type="button" onClick={toTop} className="group ml-auto inline-flex items-center gap-1.5 rounded-full border border-paper/15 px-3 py-1.5 hover:border-paper/50 hover:text-paper md:ml-2">
+            <button
+              type="button"
+              onClick={toTop}
+              className="group ml-auto inline-flex items-center gap-1.5 rounded-full border border-paper/15 px-3 py-1.5 hover:border-paper/50 hover:text-paper md:ml-2"
+            >
               Top
-              <ArrowUp className="size-3.5 transition-transform duration-base ease-out-expo group-hover:-translate-y-0.5" aria-hidden />
+              <ArrowUp
+                className="size-3.5 transition-transform duration-base ease-out-expo group-hover:-translate-y-0.5"
+                aria-hidden
+              />
             </button>
           </div>
         </div>

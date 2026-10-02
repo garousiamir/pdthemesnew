@@ -1,6 +1,12 @@
 "use client";
 
-import { useDeferredValue, useEffect, useMemo, useState, useTransition } from "react";
+import {
+  useDeferredValue,
+  useEffect,
+  useMemo,
+  useState,
+  useTransition,
+} from "react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { AnimatePresence, LayoutGroup, motion } from "motion/react";
 import { PackageOpen } from "lucide-react";
@@ -27,12 +33,22 @@ const ease = [0.22, 1, 0.36, 1] as const;
  * so results can be shared. Uses useTransition so a skeleton can show if the
  * re-render is slow on low-end devices.
  */
-export function Catalog({ products, initialFilter = "all", filters, syncUrl = true, columns = 3 }: Props) {
+export function Catalog({
+  products,
+  initialFilter = "all",
+  filters,
+  syncUrl = true,
+  columns = 3,
+}: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
   const fromUrl = (params.get("filter") as CatalogFilter | null) ?? null;
-  const [filter, setFilter] = useState<CatalogFilter>(fromUrl && catalogFilters.some((f) => f.id === fromUrl) ? fromUrl : initialFilter);
+  const [filter, setFilter] = useState<CatalogFilter>(
+    fromUrl && catalogFilters.some((f) => f.id === fromUrl)
+      ? fromUrl
+      : initialFilter,
+  );
   const deferred = useDeferredValue(filter);
   const [pending, startTransition] = useTransition();
 
@@ -46,13 +62,23 @@ export function Catalog({ products, initialFilter = "all", filters, syncUrl = tr
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filter]);
 
-  const visibleFilters = useMemo(() => catalogFilters.filter((f) => !filters || filters.includes(f.id)), [filters]);
-  const list = useMemo(() => products.filter((p) => matchesFilter(p, deferred)), [products, deferred]);
+  const visibleFilters = useMemo(
+    () => catalogFilters.filter((f) => !filters || filters.includes(f.id)),
+    [filters],
+  );
+  const list = useMemo(
+    () => products.filter((p) => matchesFilter(p, deferred)),
+    [products, deferred],
+  );
 
   return (
     <div data-testid="catalog">
       <div className="no-scrollbar -mx-(--gutter) overflow-x-auto px-(--gutter)">
-        <div role="tablist" aria-label="Product categories" className="flex w-max gap-2 pb-1">
+        <div
+          role="tablist"
+          aria-label="Product categories"
+          className="flex w-max gap-2 pb-1"
+        >
           <LayoutGroup id="catalog-filters">
             {visibleFilters.map((f) => {
               const on = filter === f.id;
@@ -63,10 +89,19 @@ export function Catalog({ products, initialFilter = "all", filters, syncUrl = tr
                   aria-selected={on}
                   type="button"
                   onClick={() => startTransition(() => setFilter(f.id))}
-                  className={cn("relative h-10 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors", on ? "text-paper" : "text-stone-700 hover:text-ink")}
+                  className={cn(
+                    "relative h-10 whitespace-nowrap rounded-full px-4 text-sm font-medium transition-colors",
+                    on ? "text-paper" : "text-stone-700 hover:text-ink",
+                  )}
                   data-filter={f.id}
                 >
-                  {on && <motion.span layoutId="catalog-pill" className="absolute inset-0 rounded-full bg-ink" transition={{ duration: 0.35, ease }} />}
+                  {on && (
+                    <motion.span
+                      layoutId="catalog-pill"
+                      className="absolute inset-0 rounded-full bg-ink"
+                      transition={{ duration: 0.35, ease }}
+                    />
+                  )}
                   <span className="relative">{f.label}</span>
                 </button>
               );
@@ -75,14 +110,26 @@ export function Catalog({ products, initialFilter = "all", filters, syncUrl = tr
         </div>
       </div>
 
-      <div className="mt-8 flex items-center justify-between text-[13px] text-stone-500" aria-live="polite">
+      <div
+        className="mt-8 flex items-center justify-between text-[13px] text-stone-500"
+        aria-live="polite"
+      >
         <span>
           {list.length} {list.length === 1 ? "product" : "products"}
           {pending && " · updating…"}
         </span>
       </div>
 
-      <motion.div layout className={cn("mt-4 grid gap-5", columns === 4 ? "sm:grid-cols-2 xl:grid-cols-4" : "sm:grid-cols-2 lg:grid-cols-3")} aria-busy={pending}>
+      <motion.div
+        layout
+        className={cn(
+          "mt-4 grid gap-5",
+          columns === 4
+            ? "sm:grid-cols-2 xl:grid-cols-4"
+            : "sm:grid-cols-2 lg:grid-cols-3",
+        )}
+        aria-busy={pending}
+      >
         <AnimatePresence mode="popLayout" initial={false}>
           {list.map((p) => (
             <motion.div
@@ -100,10 +147,20 @@ export function Catalog({ products, initialFilter = "all", filters, syncUrl = tr
       </motion.div>
 
       {list.length === 0 && (
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} className="mt-4 flex flex-col items-center rounded-lg border border-dashed border-stone-300 px-6 py-16 text-center" data-testid="catalog-empty">
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="mt-4 flex flex-col items-center rounded-lg border border-dashed border-stone-300 px-6 py-16 text-center"
+          data-testid="catalog-empty"
+        >
           <PackageOpen className="size-8 text-stone-400" aria-hidden />
-          <p className="mt-4 font-display text-2xl">Nothing in this category yet.</p>
-          <p className="mt-2 max-w-[40ch] text-sm text-stone-500">We add products a few times a year. Browse everything, or get notified when something new lands.</p>
+          <p className="mt-4 font-display text-2xl">
+            Nothing in this category yet.
+          </p>
+          <p className="mt-2 max-w-[40ch] text-sm text-stone-500">
+            We add products a few times a year. Browse everything, or get
+            notified when something new lands.
+          </p>
           <div className="mt-6 flex gap-2">
             <Button variant="primary" onClick={() => setFilter("all")}>
               Show all products

@@ -6,7 +6,11 @@ import { Reveal } from "@/components/animations/reveal";
 
 export function FeaturedProducts({ products }: { products: Product[] }) {
   return (
-    <section className="container-x section" aria-labelledby="featured-title" id="featured">
+    <section
+      className="container-x section"
+      aria-labelledby="featured-title"
+      id="featured"
+    >
       <SectionHeading
         eyebrow="Featured products"
         title={
@@ -21,10 +25,22 @@ export function FeaturedProducts({ products }: { products: Product[] }) {
           </Button>
         }
       />
-      <Reveal className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:gap-6" stagger={0.1}>
+      <Reveal
+        className="mt-12 grid gap-5 md:grid-cols-2 lg:mt-16 lg:gap-6"
+        stagger={0.1}
+      >
         {products.map((p, i) => (
-          <div key={p.slug} data-reveal className={i % 3 === 0 ? "md:[&>article]:h-full" : ""}>
-            <ProductCard product={p} variant="large" priority={i < 2} className="h-full" />
+          <div
+            key={p.slug}
+            data-reveal
+            className={i % 3 === 0 ? "md:[&>article]:h-full" : ""}
+          >
+            <ProductCard
+              product={p}
+              variant="large"
+              priority={i < 2}
+              className="h-full"
+            />
           </div>
         ))}
       </Reveal>

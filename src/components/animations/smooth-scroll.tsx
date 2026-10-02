@@ -1,13 +1,25 @@
 "use client";
 
-import { createContext, useContext, useEffect, useRef, type ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  type ReactNode,
+} from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 import { getGsap } from "@/lib/gsap";
 import { useReducedMotion } from "@/hooks/use-reduced-motion";
 
-type Ctx = { lenisRef: React.RefObject<Lenis | null>; velocity: React.RefObject<number> };
-const SmoothScrollContext = createContext<Ctx>({ lenisRef: { current: null }, velocity: { current: 0 } });
+type Ctx = {
+  lenisRef: React.RefObject<Lenis | null>;
+  velocity: React.RefObject<number>;
+};
+const SmoothScrollContext = createContext<Ctx>({
+  lenisRef: { current: null },
+  velocity: { current: 0 },
+});
 
 export function useLenis() {
   return useContext(SmoothScrollContext);
@@ -58,7 +70,11 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     return () => window.clearTimeout(id);
   }, [pathname]);
 
-  return <SmoothScrollContext.Provider value={{ lenisRef, velocity }}>{children}</SmoothScrollContext.Provider>;
+  return (
+    <SmoothScrollContext.Provider value={{ lenisRef, velocity }}>
+      {children}
+    </SmoothScrollContext.Provider>
+  );
 }
 
 /** Locks page scroll while modals/menus are open. */

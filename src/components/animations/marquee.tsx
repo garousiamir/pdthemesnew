@@ -24,7 +24,16 @@ type Props = {
  * Seamless CSS marquee. The track is duplicated once and translated -50%,
  * so the loop never jumps. Reduced motion renders the content statically.
  */
-export function Marquee({ children, className, duration = 32, reverse = false, velocitySkew = false, gap = "3rem", ariaLabel, reducedCount }: Props) {
+export function Marquee({
+  children,
+  className,
+  duration = 32,
+  reverse = false,
+  velocitySkew = false,
+  gap = "3rem",
+  ariaLabel,
+  reducedCount,
+}: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const { velocity } = useLenis();
   const reduced = useReducedMotion();
@@ -34,7 +43,10 @@ export function Marquee({ children, className, duration = 32, reverse = false, v
     const el = trackRef.current;
     if (!el) return;
     const { gsap } = getGsap();
-    const setSkew = gsap.quickTo(el, "skewX", { duration: 0.4, ease: "power3.out" });
+    const setSkew = gsap.quickTo(el, "skewX", {
+      duration: 0.4,
+      ease: "power3.out",
+    });
     const tick = () => {
       const v = Math.max(-1, Math.min(1, velocity.current / 40));
       setSkew(v * -6);
@@ -45,17 +57,30 @@ export function Marquee({ children, className, duration = 32, reverse = false, v
 
   if (reduced) {
     return (
-      <div className={cn("flex flex-wrap items-center justify-center", className)} style={{ gap }} aria-label={ariaLabel}>
-        {reducedCount ? Children.toArray(children).slice(0, reducedCount) : children}
+      <div
+        className={cn("flex flex-wrap items-center justify-center", className)}
+        style={{ gap }}
+        aria-label={ariaLabel}
+      >
+        {reducedCount
+          ? Children.toArray(children).slice(0, reducedCount)
+          : children}
       </div>
     );
   }
 
   return (
-    <div className={cn("overflow-hidden", className)} aria-label={ariaLabel} role={ariaLabel ? "marquee" : undefined}>
+    <div
+      className={cn("overflow-hidden", className)}
+      aria-label={ariaLabel}
+      role={ariaLabel ? "marquee" : undefined}
+    >
       <div
         ref={trackRef}
-        className={cn("flex w-max will-change-transform", reverse ? "animate-marquee-reverse" : "animate-marquee")}
+        className={cn(
+          "flex w-max will-change-transform",
+          reverse ? "animate-marquee-reverse" : "animate-marquee",
+        )}
         style={{ ["--marquee-duration" as string]: `${duration}s`, gap }}
       >
         <div className="flex shrink-0 items-center" style={{ gap }}>

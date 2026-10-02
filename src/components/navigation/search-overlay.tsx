@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "motion/react";
+import { Portal } from "@/components/ui/portal";
 import {
   Search,
   X,
@@ -23,9 +24,11 @@ const icons = { product: Package, page: FileText, doc: BookOpen };
 export function SearchOverlay({ open, onClose, items }: Props) {
   useScrollLock(open);
   return (
-    <AnimatePresence>
-      {open && <SearchPanel onClose={onClose} items={items} />}
-    </AnimatePresence>
+    <Portal>
+      <AnimatePresence>
+        {open && <SearchPanel onClose={onClose} items={items} />}
+      </AnimatePresence>
+    </Portal>
   );
 }
 

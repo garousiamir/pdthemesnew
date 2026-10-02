@@ -5,7 +5,11 @@ import { Catalog, CatalogSkeleton } from "@/components/products/catalog";
 
 export function CatalogSection({ products }: { products: Product[] }) {
   return (
-    <section className="container-x section" aria-labelledby="catalog-title" id="catalog">
+    <section
+      className="container-x section"
+      aria-labelledby="catalog-title"
+      id="catalog"
+    >
       <SectionHeading
         eyebrow="Complete catalog"
         title={

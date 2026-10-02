@@ -15,7 +15,10 @@ export function StickyPurchaseBar({ product: p }: { product: Product }) {
   useEffect(() => {
     const hero = document.querySelector("[data-testid='product-hero']");
     if (!hero) return;
-    const io = new IntersectionObserver(([e]) => setShow(!e.isIntersecting && e.boundingClientRect.top < 0), { threshold: 0 });
+    const io = new IntersectionObserver(
+      ([e]) => setShow(!e.isIntersecting && e.boundingClientRect.top < 0),
+      { threshold: 0 },
+    );
     io.observe(hero);
     return () => io.disconnect();
   }, []);
@@ -33,14 +36,27 @@ export function StickyPurchaseBar({ product: p }: { product: Product }) {
         >
           <div className="flex items-center gap-3 rounded-full border border-stone-200 bg-paper/95 p-2 pl-3 shadow-float backdrop-blur">
             <span className="relative hidden size-10 shrink-0 overflow-hidden rounded-full bg-paper-2 sm:block">
-              <Image src={p.thumbnail.src} alt="" fill sizes="40px" className="object-cover object-top" />
+              <Image
+                src={p.thumbnail.src}
+                alt=""
+                fill
+                sizes="40px"
+                className="object-cover object-top"
+              />
             </span>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium">{p.name}</p>
-              <Price amount={price} currency={p.pricing.currency} prefix={price ? "from" : undefined} size="sm" />
+              <Price
+                amount={price}
+                currency={p.pricing.currency}
+                prefix={price ? "from" : undefined}
+                size="sm"
+              />
             </div>
             {p.pricing.free ? (
-              <Button href="#pricing" variant="primary" size="sm">Download</Button>
+              <Button href="#pricing" variant="primary" size="sm">
+                Download
+              </Button>
             ) : (
               <BuyButton product={p} size="sm" />
             )}

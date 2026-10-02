@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
+import { Portal } from "@/components/ui/portal";
 import {
   ExternalLink,
   Monitor,
@@ -73,16 +74,18 @@ export function DemoViewer({
           <ExternalLink className="size-4" />
         </a>
       </div>
-      <AnimatePresence>
-        {open && (
-          <DemoPanel
-            url={url}
-            name={name}
-            allowsEmbedding={allowsEmbedding}
-            onClose={() => setOpen(false)}
-          />
-        )}
-      </AnimatePresence>
+      <Portal>
+        <AnimatePresence>
+          {open && (
+            <DemoPanel
+              url={url}
+              name={name}
+              allowsEmbedding={allowsEmbedding}
+              onClose={() => setOpen(false)}
+            />
+          )}
+        </AnimatePresence>
+      </Portal>
     </>
   );
 }

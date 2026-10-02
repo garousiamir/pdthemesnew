@@ -1,6 +1,11 @@
 "use client";
 
-import { useLayoutEffect, useRef, type ElementType, type ReactNode } from "react";
+import {
+  useLayoutEffect,
+  useRef,
+  type ElementType,
+  type ReactNode,
+} from "react";
 import { getGsap } from "@/lib/gsap";
 import { cn } from "@/lib/utils";
 
@@ -24,7 +29,17 @@ type Props = {
  * Scroll-triggered reveal. Animates children marked `data-reveal`; if none are
  * marked, animates the wrapper itself. Honors reduced motion via gsap.matchMedia.
  */
-export function Reveal({ children, className, as: Tag = "div", delay = 0, stagger = 0.08, y = 32, start = "top 85%", once = true, id }: Props) {
+export function Reveal({
+  children,
+  className,
+  as: Tag = "div",
+  delay = 0,
+  stagger = 0.08,
+  y = 32,
+  start = "top 85%",
+  once = true,
+  id,
+}: Props) {
   const ref = useRef<HTMLElement>(null);
 
   useLayoutEffect(() => {
@@ -45,7 +60,14 @@ export function Reveal({ children, className, as: Tag = "div", delay = 0, stagge
         stagger,
         ease: "expo.out",
         clearProps: "willChange",
-        scrollTrigger: { trigger: el, start, once, toggleActions: once ? "play none none none" : "play none none reverse" },
+        scrollTrigger: {
+          trigger: el,
+          start,
+          once,
+          toggleActions: once
+            ? "play none none none"
+            : "play none none reverse",
+        },
       });
       return () => {
         tween.scrollTrigger?.kill();

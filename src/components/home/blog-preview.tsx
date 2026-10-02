@@ -8,7 +8,11 @@ export function BlogPreview({ posts }: { posts: BlogPostMeta[] }) {
   const [first, ...rest] = posts;
   if (!first) return null;
   return (
-    <section className="container-x section hairline-t" aria-labelledby="blog-title" id="blog">
+    <section
+      className="container-x section hairline-t"
+      aria-labelledby="blog-title"
+      id="blog"
+    >
       <SectionHeading
         eyebrow="Blog & resources"
         title={
