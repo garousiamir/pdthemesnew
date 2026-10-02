@@ -23,6 +23,16 @@ Run in this environment with the pre-installed browser:
 PLAYWRIGHT_CHROMIUM_EXECUTABLE_PATH=/opt/pw-browsers/chromium npm run test
 ```
 
+## Latest run
+
+Production build, Chromium (pre-installed `/opt/pw-browsers/chromium`), desktop + mobile projects:
+
+| Result | Count |
+| --- | --- |
+| Passed | 119 |
+| Skipped (device-specific variants) | 3 |
+| Failed | 0 |
+
 ## Screenshot sweep
 
 `npm run shots` captures full-page screenshots of 18 routes at 1920 / 1440 / 1280 / 1024 / 768 / 430 / 390 / 375 / 320 px into `tests/screenshots/` (git-ignored) and reports horizontal overflow and console errors. `MOTION=on` captures with animations after scrolling through the page.
