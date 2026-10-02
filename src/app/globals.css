@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+/* ------------------------------------------------------------------ */
+/* Self-hosted fonts (Latin + Latin Extended, covers German)           */
+/* ------------------------------------------------------------------ */
+@font-face{font-family:"Fraunces";font-style:italic;font-weight:300 900;font-display:swap;src:url("/fonts/fraunces-italic-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:"Fraunces";font-style:italic;font-weight:300 900;font-display:swap;src:url("/fonts/fraunces-italic-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:300 900;font-display:swap;src:url("/fonts/fraunces-normal-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:"Fraunces";font-style:normal;font-weight:300 900;font-display:swap;src:url("/fonts/fraunces-normal-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:"Geist";font-style:normal;font-weight:300 800;font-display:swap;src:url("/fonts/geist-normal-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:"Geist";font-style:normal;font-weight:300 800;font-display:swap;src:url("/fonts/geist-normal-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 600;font-display:swap;src:url("/fonts/geist-mono-normal-latin-ext.woff2") format("woff2");unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}
+@font-face{font-family:"Geist Mono";font-style:normal;font-weight:400 600;font-display:swap;src:url("/fonts/geist-mono-normal-latin.woff2") format("woff2");unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+/* Metric-compatible fallbacks reduce layout shift while web fonts load. */
+@font-face{font-family:"Fraunces Fallback";src:local("Georgia"),local("Times New Roman");ascent-override:93%;descent-override:24%;line-gap-override:0%;size-adjust:104%;}
+@font-face{font-family:"Geist Fallback";src:local("Arial"),local("Helvetica Neue");ascent-override:95%;descent-override:22%;line-gap-override:0%;size-adjust:98%;}
+
+/* ------------------------------------------------------------------ */
+/* Design tokens                                                        */
+/* ------------------------------------------------------------------ */
+@theme {
+  --font-display: "Fraunces", "Fraunces Fallback", Georgia, serif;
+  --font-sans: "Geist", "Geist Fallback", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --color-paper: #f5f2ec;
+  --color-paper-2: #ece7de;
+  --color-paper-3: #e3dccf;
+  --color-ink: #141311;
+  --color-ink-2: #211f1c;
+  --color-ink-3: #2d2a26;
+  --color-stone-100: #efebe4;
+  --color-stone-200: #dcd6cb;
+  --color-stone-300: #c3bbad;
+  --color-stone-400: #a0978a;
+  --color-stone-500: #7c7368;
+  --color-stone-600: #5b544b;
+  --color-stone-700: #3f3a33;
+  --color-accent: #e4572e;
+  --color-accent-ink: #b8401c;
+  --color-accent-soft: #fbe3da;
+  --color-moss: #5b6b4a;
+  --color-moss-soft: #e4e9dc;
+  --color-sun: #f2c14e;
+  --color-sun-soft: #fbefcf;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 40px;
+
+  --shadow-float: 0 24px 64px -24px rgb(20 19 17 / 0.35), 0 2px 8px -2px rgb(20 19 17 / 0.12);
+  --shadow-card: 0 1px 0 0 rgb(20 19 17 / 0.06), 0 12px 32px -20px rgb(20 19 17 / 0.3);
+  --shadow-frame: 0 40px 80px -40px rgb(20 19 17 / 0.45), 0 0 0 1px rgb(20 19 17 / 0.06);
+
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  --duration-fast: 160ms;
+  --duration-base: 320ms;
+  --duration-slow: 640ms;
+  --duration-hero: 1100ms;
+
+  --breakpoint-xs: 30rem;
+  --breakpoint-3xl: 120rem;
+
+  --container-site: 90rem;
+
+  --text-display-xl: clamp(3.25rem, 8.5vw, 8.75rem);
+  --text-display-xl--line-height: 0.92;
+  --text-display-xl--letter-spacing: -0.035em;
+  --text-display-lg: clamp(2.75rem, 6.2vw, 6rem);
+  --text-display-lg--line-height: 0.95;
+  --text-display-lg--letter-spacing: -0.03em;
+  --text-display-md: clamp(2.125rem, 4.2vw, 4rem);
+  --text-display-md--line-height: 1;
+  --text-display-md--letter-spacing: -0.025em;
+  --text-display-sm: clamp(1.625rem, 2.6vw, 2.5rem);
+  --text-display-sm--line-height: 1.08;
+  --text-display-sm--letter-spacing: -0.02em;
+  --text-lead: clamp(1.0625rem, 1.3vw, 1.3125rem);
+  --text-lead--line-height: 1.55;
+
+  --animate-marquee: marquee var(--marquee-duration, 32s) linear infinite;
+  --animate-marquee-reverse: marquee-reverse var(--marquee-duration, 32s) linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-scroll-y: scroll-y var(--scroll-duration, 44s) linear infinite;
+  --animate-scroll-y-reverse: scroll-y-reverse var(--scroll-duration, 44s) linear infinite;
+  --animate-spin-slow: spin 14s linear infinite;
+
+  @keyframes marquee { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(-50%, 0, 0); } }
+  @keyframes marquee-reverse { from { transform: translate3d(-50%, 0, 0); } to { transform: translate3d(0, 0, 0); } }
+  @keyframes scroll-y { from { transform: translate3d(0, 0, 0); } to { transform: translate3d(0, -50%, 0); } }
+  @keyframes scroll-y-reverse { from { transform: translate3d(0, -50%, 0); } to { transform: translate3d(0, 0, 0); } }
+  @keyframes float { 0%, 100% { transform: translate3d(0, 0, 0); } 50% { transform: translate3d(0, -10px, 0); } }
+}
+
+/* ------------------------------------------------------------------ */
+/* Base                                                                 */
+/* ------------------------------------------------------------------ */
+@layer base {
+  :root {
+    --gutter: clamp(1rem, 4vw, 4rem);
+    --section: clamp(5rem, 10vw, 10rem);
+    --header-h: 5rem;
+    color-scheme: light;
+  }
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+  html.lenis, html.lenis body { height: auto; }
+  .lenis.lenis-smooth { scroll-behavior: auto !important; }
+  .lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+  .lenis.lenis-stopped { overflow: hidden; }
+  body {
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+  ::selection { background: var(--color-accent); color: #fff; }
+  :focus-visible { outline: 2px solid var(--color-accent); outline-offset: 3px; border-radius: 2px; }
+  h1, h2, h3, h4 { font-family: var(--font-display); font-weight: 500; text-wrap: balance; }
+  p { text-wrap: pretty; }
+  img, video { display: block; max-width: 100%; height: auto; }
+  button { cursor: pointer; }
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Utilities                                                            */
+/* ------------------------------------------------------------------ */
+@utility container-x {
+  width: 100%;
+  max-width: var(--container-site);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+@utility section { padding-block: var(--section); }
+@utility section-t { padding-top: var(--section); }
+@utility section-b { padding-bottom: var(--section); }
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--color-stone-500);
+}
+@utility display-xl { font-family: var(--font-display); font-size: var(--text-display-xl); line-height: var(--text-display-xl--line-height); letter-spacing: var(--text-display-xl--letter-spacing); font-weight: 500; font-variation-settings: "opsz" 144; }
+@utility display-lg { font-family: var(--font-display); font-size: var(--text-display-lg); line-height: var(--text-display-lg--line-height); letter-spacing: var(--text-display-lg--letter-spacing); font-weight: 500; font-variation-settings: "opsz" 144; }
+@utility display-md { font-family: var(--font-display); font-size: var(--text-display-md); line-height: var(--text-display-md--line-height); letter-spacing: var(--text-display-md--letter-spacing); font-weight: 500; font-variation-settings: "opsz" 96; }
+@utility display-sm { font-family: var(--font-display); font-size: var(--text-display-sm); line-height: var(--text-display-sm--line-height); letter-spacing: var(--text-display-sm--letter-spacing); font-weight: 500; font-variation-settings: "opsz" 72; }
+@utility lead { font-size: var(--text-lead); line-height: var(--text-lead--line-height); color: var(--color-stone-600); }
+@utility accent-italic { font-style: italic; font-weight: 400; color: var(--color-accent); }
+@utility hairline { border: 1px solid var(--color-stone-200); }
+@utility hairline-t { border-top: 1px solid var(--color-stone-200); }
+@utility hairline-b { border-bottom: 1px solid var(--color-stone-200); }
+@utility dark-surface { background: var(--color-ink); color: var(--color-paper); }
+@utility mask-fade-x { mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent); }
+@utility mask-fade-y { mask-image: linear-gradient(to bottom, transparent, #000 10%, #000 90%, transparent); }
+@utility no-scrollbar { scrollbar-width: none; &::-webkit-scrollbar { display: none; } }
+@utility link-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size var(--duration-base) var(--ease-out-expo);
+  &:hover, &:focus-visible { background-size: 100% 1px; }
+}
+@utility frame {
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--color-paper-2);
+  box-shadow: var(--shadow-frame);
+}
+@utility grain {
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute; inset: 0; pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+/* Accordion: height animation via grid rows (compositor friendly enough, no JS measuring) */
+.accordion-panel { display: grid; grid-template-rows: 0fr; transition: grid-template-rows var(--duration-base) var(--ease-out-expo); }
+.accordion-panel[data-open="true"] { grid-template-rows: 1fr; }
+.accordion-panel > div { overflow: hidden; }
+
+/* Prose for MDX and legal pages */
+.prose-pd { max-width: 44rem; font-size: 1.0625rem; line-height: 1.7; color: var(--color-stone-700); }
+.prose-pd > * + * { margin-top: 1.25em; }
+.prose-pd h2 { font-family: var(--font-display); font-size: clamp(1.75rem, 2.6vw, 2.25rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--color-ink); margin-top: 2.2em; }
+.prose-pd h3 { font-family: var(--font-display); font-size: 1.375rem; line-height: 1.2; color: var(--color-ink); margin-top: 1.8em; }
+.prose-pd a { color: var(--color-ink); text-decoration: underline; text-decoration-color: var(--color-stone-300); text-underline-offset: 3px; }
+.prose-pd a:hover { text-decoration-color: var(--color-accent); }
+.prose-pd ul, .prose-pd ol { padding-left: 1.25rem; }
+.prose-pd ul { list-style: disc; }
+.prose-pd ol { list-style: decimal; }
+.prose-pd li + li { margin-top: 0.4em; }
+.prose-pd blockquote { border-left: 2px solid var(--color-accent); padding-left: 1.25rem; font-family: var(--font-display); font-style: italic; font-size: 1.25em; color: var(--color-ink); }
+.prose-pd code { font-family: var(--font-mono); font-size: 0.875em; background: var(--color-paper-2); padding: 0.15em 0.4em; border-radius: 6px; }
+.prose-pd pre { background: var(--color-ink); color: var(--color-paper); padding: 1.25rem; border-radius: var(--radius-md); overflow-x: auto; font-size: 0.875rem; }
+.prose-pd pre code { background: transparent; padding: 0; }
+.prose-pd img { border-radius: var(--radius-md); }
+.prose-pd hr { border: 0; border-top: 1px solid var(--color-stone-200); }
+.prose-pd table { width: 100%; border-collapse: collapse; font-size: 0.9375rem; }
+.prose-pd th, .prose-pd td { text-align: left; padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--color-stone-200); vertical-align: top; }
+.prose-pd th { font-family: var(--font-mono); font-size: 0.6875rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--color-stone-500); }
+
+/* Split-text lines get an overflow mask so words can slide up from below. */
+.split-line { display: block; overflow: hidden; padding-bottom: 0.08em; margin-bottom: -0.08em; }
