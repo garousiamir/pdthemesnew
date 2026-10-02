@@ -50,12 +50,14 @@ export function Header({ themes, plugins, searchItems }: Props) {
     };
   }, []);
 
-  // Close menus on route change.
-  useEffect(() => {
+  // Close menus on route change (state adjusted during render, per React guidance).
+  const [prevPath, setPrevPath] = useState(pathname);
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
     setOpenMenu(null);
     setMobileOpen(false);
     setSearchOpen(false);
-  }, [pathname]);
+  }
 
   // Cmd/Ctrl+K opens search.
   useEffect(() => {

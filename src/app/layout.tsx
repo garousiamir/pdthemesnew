@@ -4,6 +4,7 @@ import { site } from "@/lib/site";
 import { SiteShell } from "@/components/layout/site-shell";
 import { JsonLd, organizationJsonLd, websiteJsonLd } from "@/lib/seo/json-ld";
 import { defaultOgImage } from "@/lib/seo/metadata";
+import { Analytics } from "@/lib/analytics";
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -33,6 +34,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body className="flex min-h-full flex-col">
         <SiteShell>{children}</SiteShell>
+        <Analytics />
       </body>
     </html>
   );

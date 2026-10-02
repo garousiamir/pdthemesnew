@@ -1,0 +1,35 @@
+---
+title: "Block themes in practice: what changed in how we build"
+excerpt: "After rebuilding our whole catalog on the site editor, here is what actually got simpler, what got harder, and what we would tell a studio starting today."
+category: "Engineering"
+date: "2026-09-12"
+author: "PDThemes Studio"
+image: { src: "/images/blog/block-themes-in-practice.jpg", alt: "Abstract composition of a dark circle and a persimmon circle on paper", width: 1600, height: 1000 }
+tags: ["block themes", "site editor", "theme.json"]
+featured: true
+---
+
+When we rebuilt Kontor as a block theme we expected the hard part to be the templates. It wasn't. The templates were a week. The hard part was unlearning the habit of reaching for PHP whenever a layout question came up.
+
+## What got simpler
+
+**Spacing and typography live in one file.** `theme.json` holds the scale, the font stacks and the spacing presets. Every block reads from it. When a client asks for "a little more air", you change one preset and the whole site follows.
+
+**Style variations replace child themes.** Kontor ships four variations. Each is a JSON file that overrides colours and fonts. No PHP, no template duplication, and the client can switch them in the site editor without touching code.
+
+**Patterns replace shortcodes.** A pricing table used to be a shortcode with eleven attributes. Now it is a pattern: real blocks, editable in place, and it survives when the plugin that rendered the shortcode is removed.
+
+## What got harder
+
+**Conditional output.** Showing a block only to logged-in users, or only when a post has a certain meta value, is still awkward. We use block bindings and a handful of small custom blocks for the rest.
+
+**Pixel control.** The editor's layout model is deliberate about what it exposes. Fine-grained control over a single element sometimes means a small block stylesheet rather than a control in the sidebar. That is the right trade-off for maintainability, but it takes adjustment.
+
+## What we would tell a studio starting today
+
+1. Start from `theme.json`, not from a design file. Decide the scales first.
+2. Build the three templates that matter (front page, single, archive) before any pattern.
+3. Test every pattern in the editor at 320 px. If it breaks there, it is not finished.
+4. Keep PHP for data, not for layout.
+
+The catalog is entirely block-based now. The code is smaller, the updates are calmer, and clients ask us fewer "how do I change…" questions. That last one is the metric that matters.

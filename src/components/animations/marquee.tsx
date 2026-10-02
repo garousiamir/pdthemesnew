@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { Children, useEffect, useRef, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 import { useLenis } from "./smooth-scroll";
 import { getGsap } from "@/lib/gsap";
@@ -16,13 +16,15 @@ type Props = {
   velocitySkew?: boolean;
   gap?: string;
   ariaLabel?: string;
+  /** Under reduced motion, render only this many children (content is static then). */
+  reducedCount?: number;
 };
 
 /**
  * Seamless CSS marquee. The track is duplicated once and translated -50%,
  * so the loop never jumps. Reduced motion renders the content statically.
  */
-export function Marquee({ children, className, duration = 32, reverse = false, velocitySkew = false, gap = "3rem", ariaLabel }: Props) {
+export function Marquee({ children, className, duration = 32, reverse = false, velocitySkew = false, gap = "3rem", ariaLabel, reducedCount }: Props) {
   const trackRef = useRef<HTMLDivElement>(null);
   const { velocity } = useLenis();
   const reduced = useReducedMotion();
@@ -44,7 +46,7 @@ export function Marquee({ children, className, duration = 32, reverse = false, v
   if (reduced) {
     return (
       <div className={cn("flex flex-wrap items-center justify-center", className)} style={{ gap }} aria-label={ariaLabel}>
-        {children}
+        {reducedCount ? Children.toArray(children).slice(0, reducedCount) : children}
       </div>
     );
   }

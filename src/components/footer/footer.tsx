@@ -16,8 +16,9 @@ const social = [
 ];
 
 export function Footer() {
-  const { lenis } = useLenis();
+  const { lenisRef } = useLenis();
   const toTop = () => {
+    const lenis = lenisRef.current;
     if (lenis) lenis.scrollTo(0);
     else window.scrollTo({ top: 0, behavior: "smooth" });
   };

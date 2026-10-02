@@ -1,0 +1,33 @@
+---
+title: "A performance budget for themes, and how we keep to it"
+excerpt: "Every theme we ship has a measured budget for CSS, JavaScript and layout shift. This is the budget, the tooling, and the three things that usually break it."
+category: "Engineering"
+date: "2026-07-30"
+author: "PDThemes Studio"
+image: { src: "/images/blog/performance-budget.jpg", alt: "Abstract composition with a blue circle on paper", width: 1600, height: 1000 }
+tags: ["performance", "Core Web Vitals", "testing"]
+---
+
+A theme cannot make a slow site fast, but it can make a fast site slow. The budget exists so it never does.
+
+## The budget
+
+| Metric | Budget | Measured on |
+| --- | --- | --- |
+| Theme CSS (compressed) | ≤ 45 KB | Front page, demo content |
+| Front-end JavaScript | ≤ 20 KB, none on simple pages | Front page |
+| Largest Contentful Paint | ≤ 1.8 s | Lab, throttled 4G |
+| Cumulative Layout Shift | ≤ 0.05 | Lab and field |
+| Fonts | ≤ 2 families, subset, preloaded | All pages |
+
+## The tooling
+
+The budget runs in CI on every release. A Playwright script loads the demo site with network throttling, collects the metrics, and fails the build if any number exceeds the budget. The numbers go in the changelog so the trend is visible.
+
+## The three usual suspects
+
+1. **Fonts.** A third family, or an unsubsetted one, adds 100–300 KB and a visible swap. We ship Latin and Latin Extended subsets only and preload the two files above the fold.
+2. **Hero images without dimensions.** One missing `width`/`height` pair is the difference between a CLS of 0.02 and 0.2. Every image block in our patterns has explicit dimensions.
+3. **"Just one" script.** A lightbox, a slider, an animation library. Each is justified in isolation and ruinous in aggregate. Nordlicht's lightbox is 6 KB and only loads on pages with a gallery.
+
+The budget is not about chasing a score. It is about the site still being fast after a year of real content, real plugins and real editors. That is the only test that counts.

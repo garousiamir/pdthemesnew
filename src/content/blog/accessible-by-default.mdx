@@ -1,0 +1,28 @@
+---
+title: "Accessible by default: the checklist we run before every release"
+excerpt: "Accessibility is not a feature we add at the end. This is the checklist every theme and plugin passes before it ships, and why each item is on it."
+category: "Guides"
+date: "2026-06-18"
+author: "PDThemes Studio"
+image: { src: "/images/blog/accessible-by-default.jpg", alt: "Abstract composition with a pale teal circle on dark ground", width: 1600, height: 1000 }
+tags: ["accessibility", "WCAG", "testing"]
+---
+
+Most accessibility problems in themes are not exotic. They are the same six things, missed under deadline pressure. So we made them a gate.
+
+## The checklist
+
+1. **Everything works with a keyboard.** Navigation, menus, lightboxes, accordions, filters. Tab order follows reading order. Nothing traps focus.
+2. **Focus is visible.** A 2 px outline with offset, on every interactive element, in every colour scheme. We do not remove outlines; we style them.
+3. **Contrast is measured, not eyeballed.** Body text ≥ 7:1, UI text ≥ 4.5:1, large headings ≥ 3:1, in each style variation.
+4. **Motion is optional.** Every animation checks `prefers-reduced-motion`. Marquees stop, reveals become fades, pinned sections unpin.
+5. **Images have real alternatives.** Pattern images ship with descriptive alt text, and decorative ones are marked as such.
+6. **Structure is semantic.** One `h1`, headings in order, landmarks for header, nav, main and footer, lists for lists.
+
+## How we test
+
+Automated checks (axe) run in CI on the demo site. Then someone navigates the whole demo with a keyboard only, and again with a screen reader. The manual pass finds what the automated one cannot: a menu that opens but cannot be closed, a label that reads "button".
+
+## Why it is on the checklist
+
+Because a theme is used by people we will never meet, on sites we will never see. Default behaviour is the only behaviour we can guarantee.
